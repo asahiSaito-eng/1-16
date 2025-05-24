@@ -62,7 +62,7 @@
   <h1>くじを引く順番を決めよう！</h1>
   <button onclick="shuffleNames()">くじ順を生成する</button>
 
-  <ol id="resultList"></ol>
+  <ul id="resultList"></ul>
 
   <script>
     const nameList = [
@@ -80,7 +80,7 @@
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
 
-      const list = document.getElementById("resultList");
+      const list = document.getElementById("resultList"); list.innerHTML = "";
       list.innerHTML = "";
       shuffled.forEach((name, index) => {
         const li = document.createElement("li");
