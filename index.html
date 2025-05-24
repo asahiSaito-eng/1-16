@@ -37,19 +37,22 @@
       background-color: #52606d;
     }
 
-    ol {
+    ul {
       width: 100%;
       max-width: 400px;
       background: white;
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      list-style: none;
+      box-sizing: border-box;
     }
 
     li {
       font-size: 16px;
       padding: 8px 0;
       border-bottom: 1px solid #e1e7ec;
+      word-break: break-word;
     }
 
     li:last-child {
@@ -80,9 +83,9 @@
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
 
-      const list = document.getElementById("resultList"); list.innerHTML = "";
+      const list = document.getElementById("resultList");
       list.innerHTML = "";
-      shuffled.forEach((name, index) => {
+      shuffled.forEach((name) => {
         const li = document.createElement("li");
         li.textContent = `${name}`;
         list.appendChild(li);
