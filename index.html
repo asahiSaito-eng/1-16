@@ -86,20 +86,25 @@
     ];
 
     function shuffleNames() {
-      const targetName = "齋藤旭";
-      const filteredList = originalList.filter(name => name !== targetName);
-      
-      for (let i = filteredList.length - 1; i > 0; i--) {
+      const fixed1 = "齋藤旭";      // 33番目
+      const fixed2 = "浅川優希";    // 34番目
+
+      // 残りのメンバーから2名を除外
+      const filtered = originalList.filter(name => name !== fixed1 && name !== fixed2);
+
+      // シャッフル
+      for (let i = filtered.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [filteredList[i], filteredList[j]] = [filteredList[j], filteredList[i]];
+        [filtered[i], filtered[j]] = [filtered[j], filtered[i]];
       }
 
-      // Insert 齋藤旭 at 33番目（index 32）
-      filteredList.splice(32, 0, targetName);
+      // 33番目に齋藤旭、34番目に浅川優希を追加
+      filtered.splice(32, 0, fixed1);
+      filtered.push(fixed2);
 
       const list = document.getElementById("resultList");
       list.innerHTML = "";
-      filteredList.forEach((name, index) => {
+      filtered.forEach((name, index) => {
         const li = document.createElement("li");
         li.textContent = `${index + 1}. ${name}`;
         list.appendChild(li);
