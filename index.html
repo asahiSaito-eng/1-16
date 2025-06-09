@@ -60,6 +60,7 @@
 
 <h1>じを引く順番</h1>
 <button onclick="shuffleNames()">くじ順を生成する</button>
+<button onclick="copyToClipboard()">結果をコピーする</button>
 
 <ul id="resultList"></ul>
 
@@ -87,6 +88,17 @@
       li.textContent = `${index + 1}. ${name}`;
       list.appendChild(li);
     });
+
+    function copyToClipboard() {
+  const list = document.getElementById("resultList");
+  const items = Array.from(list.querySelectorAll("li")).map(li => li.textContent).join('\n');
+  
+  navigator.clipboard.writeText(items).then(() => {
+    alert("結果をクリップボードにコピーしました！");
+  }).catch(err => {
+    alert("コピーに失敗しました: " + err);
+  });
+  }
   }
 </script>
 
