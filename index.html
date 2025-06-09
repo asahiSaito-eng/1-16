@@ -1,106 +1,129 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>くじ順ランダム表示</title>
-<style>
-  body {
-    font-family: 'Helvetica Neue', sans-serif;
-    background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
-    color: #102a43;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #243b53;
-  }
-  button {
-    background-color: #3e4c59;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 30px;
-  }
-  button:hover {
-    background-color: #52606d;
-  }
-  ul {
-    width: 100%;
-    max-width: 400px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    list-style: none;
-    box-sizing: border-box;
-    max-height: 70vh;
-    overflow-y: auto;
-  }
-  li {
-    font-size: 16px;
-    padding: 8px 0;
-    border-bottom: 1px solid #e1e7ec;
-    word-break: break-word;
-  }
-  li:last-child {
-    border-bottom: none;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>くじ順ランダム表示</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+      color: #102a43;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #243b53;
+    }
+
+    button {
+      background-color: #3e4c59;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-bottom: 20px;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #52606d;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    ul {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      list-style: none;
+      box-sizing: border-box;
+    }
+
+    li {
+      font-size: 16px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e1e7ec;
+      word-break: break-word;
+    }
+
+    li:last-child {
+      border-bottom: none;
+    }
+  </style>
 </head>
 <body>
 
-<h1>くじを引く順番</h1>
-<button onclick="shuffleNames()">くじ順を生成する</button>
-<button onclick="copyToClipboard()">結果をコピーする</button>
+  <h1>くじを引く順番を決めよう！</h1>
 
-<ul id="resultList"></ul>
+  <div class="button-group">
+    <button onclick="shuffleNames()">くじ順を生成する</button>
+    <button onclick="copyToClipboard()">結果をコピーする</button>
+  </div>
 
-<script>
-  const nameList = [
-    "奥田千尋","奥野尚","横川遙城","加藤結愛","関桃香","関根香穂","郷原緒",
-    "金谷駿","古谷優歩","江口結唯","佐川怜","佐藤直紀","市川右馨","酒寄克典",
-    "春日琉希","小林芽以","松島好希","松本瑠唯","仁科梨菜","浅川優希",
-    "相坂美怜","端山日々萌","竹内捺姫","中泉佑悠","中田桜輔","中野来瑠美",
-    "塚谷柊斗","土田龍虎","尾澤侑真","片倉仁美","鈴木ほの","櫻井陸翔",
-    "舩張蒼良","齋藤旭"
-  ];
+  <ul id="resultList"></ul>
 
-  function shuffleNames() {
-    const shuffled = [...nameList];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  <script>
+    const nameList = [
+      "横川遙城", "加藤結愛", "関桃香", "関根香穂", "郷原緒", "金谷駿",
+      "古谷優歩", "江口結唯", "佐川怜", "佐藤直紀", "市川右馨", "酒寄克典", "春日琉希",
+      "小林芽以", "松島好希", "松本瑠唯", "仁科梨菜", "浅川優希", "相坂美怜", "端山日々萌",
+      "竹内捺姫", "中泉佑悠", "中田桜輔", "中野来瑠美", "塚谷柊斗", "土田龍虎", "尾澤侑真",
+      "片倉仁美", "鈴木ほの", "櫻井陸翔", "舩張蒼良", "齋藤旭", "奥田千尋", "奥野尚"
+    ];
+
+    function shuffleNames() {
+      const shuffled = [...nameList];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      const list = document.getElementById("resultList");
+      list.innerHTML = "";
+      shuffled.forEach((name, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}. ${name}`;
+        list.appendChild(li);
+      });
     }
 
-    const list = document.getElementById("resultList");
-    list.innerHTML = "";
-    shuffled.forEach((name, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${index + 1}. ${name}`;
-      list.appendChild(li);
-    });
-
     function copyToClipboard() {
-  const list = document.getElementById("resultList");
-  const items = Array.from(list.querySelectorAll("li")).map(li => li.textContent).join('\n');
-  
-  navigator.clipboard.writeText(items).then(() => {
-    alert("結果をクリップボードにコピーしました！");
-  }).catch(err => {
-    alert("コピーに失敗しました: " + err);
-  });
-  }
-  }
-</script>
+      const listItems = document.querySelectorAll("#resultList li");
+      if (listItems.length === 0) {
+        alert("まず「くじ順を生成する」ボタンを押してください。");
+        return;
+      }
+
+      const text = Array.from(listItems)
+        .map(li => li.textContent)
+        .join("\n");
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert("結果をクリップボードにコピーしました！");
+        })
+        .catch(err => {
+          console.error("コピーに失敗:", err);
+          alert("コピーに失敗しました。ブラウザが対応していない可能性があります。");
+        });
+    }
+  </script>
 
 </body>
 </html>
