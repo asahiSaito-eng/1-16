@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>くじ順ランダム表示</title>
   <style>
     body {
@@ -31,17 +31,10 @@
       cursor: pointer;
       transition: background-color 0.3s;
       margin-bottom: 20px;
-      margin-right: 10px;
     }
 
     button:hover {
       background-color: #52606d;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
     }
 
     ul {
@@ -65,38 +58,48 @@
     li:last-child {
       border-bottom: none;
     }
+
+    #copyButton {
+      background-color: #2f855a;
+      margin-bottom: 30px;
+    }
+
+    #copyButton:hover {
+      background-color: #38a169;
+    }
   </style>
 </head>
 <body>
 
-  <h1>くじを引く順番</h1>
-
-  <div class="button-group">
-    <button onclick="shuffleNames()">くじ順を生成する</button>
-    <button onclick="copyToClipboard()">結果をコピーする</button>
-  </div>
+  <h1>くじを引く順番を決めよう！</h1>
+  <button onclick="shuffleNames()">くじ順を生成する</button>
+  <button id="copyButton" onclick="copyToClipboard()">結果をコピー</button>
 
   <ul id="resultList"></ul>
 
   <script>
-    const nameList = [
-      "横川遙城", "加藤結愛", "関桃香", "関根香穂", "郷原緒", "金谷駿",
-      "古谷優歩", "江口結唯", "佐川怜", "佐藤直紀", "市川右馨", "酒寄克典", "春日琉希",
-      "小林芽以", "松島好希", "松本瑠唯", "仁科梨菜", "浅川優希", "相坂美怜", "端山日々萌",
-      "竹内捺姫", "中泉佑悠", "中田桜輔", "中野来瑠美", "塚谷柊斗", "土田龍虎", "尾澤侑真",
-      "片倉仁美", "鈴木ほの", "櫻井陸翔", "舩張蒼良", "齋藤旭", "奥田千尋", "奥野尚"
+    const originalList = [
+      "奥田千尋","奥野尚","横川遙城","加藤結愛","関桃香","関根香穂","郷原緒","金谷駿","古谷優歩","江口結唯",
+      "佐川怜","佐藤直紀","市川右馨","酒寄克典","春日琉希","小林芽以","松島好希","松本瑠唯","仁科梨菜","浅川優希",
+      "相坂美怜","端山日々萌","竹内捺姫","中泉佑悠","中田桜輔","中野来瑠美","塚谷柊斗","土田龍虎","尾澤侑真",
+      "片倉仁美","鈴木ほの","櫻井陸翔","舩張蒼良","齋藤旭"
     ];
 
     function shuffleNames() {
-      const shuffled = [...nameList];
-      for (let i = shuffled.length - 1; i > 0; i--) {
+      const targetName = "齋藤旭";
+      const filteredList = originalList.filter(name => name !== targetName);
+      
+      for (let i = filteredList.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        [filteredList[i], filteredList[j]] = [filteredList[j], filteredList[i]];
       }
+
+      // Insert 齋藤旭 at 33番目（index 32）
+      filteredList.splice(32, 0, targetName);
 
       const list = document.getElementById("resultList");
       list.innerHTML = "";
-      shuffled.forEach((name, index) => {
+      filteredList.forEach((name, index) => {
         const li = document.createElement("li");
         li.textContent = `${index + 1}. ${name}`;
         list.appendChild(li);
@@ -104,24 +107,17 @@
     }
 
     function copyToClipboard() {
-      const listItems = document.querySelectorAll("#resultList li");
-      if (listItems.length === 0) {
-        alert("まず「くじ順を生成する」ボタンを押してください。");
-        return;
-      }
+      const list = document.getElementById("resultList");
+      let text = "";
+      list.querySelectorAll("li").forEach(li => {
+        text += li.textContent + "\n";
+      });
 
-      const text = Array.from(listItems)
-        .map(li => li.textContent)
-        .join("\n");
-
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          alert("結果をクリップボードにコピーしました！");
-        })
-        .catch(err => {
-          console.error("コピーに失敗:", err);
-          alert("コピーに失敗しました。ブラウザが対応していない可能性があります。");
-        });
+      navigator.clipboard.writeText(text).then(() => {
+        alert("クリップボードにコピーしました！");
+      }).catch(err => {
+        alert("コピーに失敗しました: " + err);
+      });
     }
   </script>
 
